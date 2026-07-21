@@ -1,5 +1,45 @@
 import { useState } from 'react'
 
+const IMG = import.meta.env.BASE_URL + 'lab-instructions/images/'
+
+const ScreenShot = ({ src, alt }) => (
+  <div className="my-4 border border-gray-200 rounded-lg overflow-hidden">
+    <img src={`${IMG}${src}`} alt={alt} className="w-full block" />
+  </div>
+)
+
+const OSInstallTabs = ({ windows, mac, linux }) => {
+  const [os, setOs] = useState('windows')
+  const tabs = [
+    { id: 'windows', label: '🪟 Windows' },
+    { id: 'mac',     label: '🍎 macOS' },
+    { id: 'linux',   label: '🐧 Linux' },
+  ]
+  const content = { windows, mac, linux }
+  return (
+    <div className="my-4">
+      <div className="flex gap-0 mb-0 border-b border-gray-200">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setOs(tab.id)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
+              os === tab.id
+                ? 'border-ibm-blue text-ibm-blue bg-white'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="border border-gray-200 border-t-0 rounded-b-lg p-4 bg-white text-sm text-gray-700 leading-relaxed">
+        {content[os]}
+      </div>
+    </div>
+  )
+}
+
 const Section = ({ number, title, children }) => (
   <div className="mb-10">
     <div className="flex items-center gap-3 mb-4">
@@ -76,19 +116,21 @@ export default function PrereqsPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-ibm-indigo mb-2">Before You Begin</p>
           <h1 className="text-2xl font-bold text-gray-900 mb-3">Prerequisites</h1>
           <p className="text-gray-500 leading-relaxed">
-            Complete these steps on your laptop before the Workshop. Each lab relies on Java 21 and Maven being installed and available on your system PATH. The whole setup takes about 10–15 minutes.
+            Complete these steps on your laptop before the Workshop. Start by installing and logging into IBM Bob, then install Java 21. Maven is only required if you are doing Lab 6 or Lab 7 — skip it if your instructor tells you otherwise.
           </p>
         </div>
 
         {/* Checklist overview */}
         <div className="bg-white border border-ibm-border rounded-xl p-6 mb-10">
-          <p className="text-sm font-semibold text-gray-700 mb-3">What you'll install</p>
+          <p className="text-sm font-semibold text-gray-700 mb-3">What you'll complete</p>
           <ul className="space-y-2 text-sm text-gray-600">
             {[
+              ['Install IBM Bob', 'Download, install, and log into the Bob desktop application'],
+              ['Activate the Z Premium Package', 'Switch to your instructor-provided team to unlock Z Code and Z Architect modes'],
               ['Java 21 (JDK)', 'Required by IBM Z Open Editor and the lab build scripts'],
-              ['Apache Maven 3.9+', 'Required to build and package the GenApp sample project'],
-              ['PATH configuration', 'Makes java and mvn available from any terminal'],
               ['JAVA_HOME (optional)', 'Needed if IBM Z Open Editor cannot auto-detect Java'],
+              ['Apache Maven 3.9+', 'Lab 6 & Lab 7 only — required to build and package the GenApp sample project'],
+              ['PATH configuration', 'Lab 6 & Lab 7 only — makes mvn available from any terminal'],
             ].map(([item, desc]) => (
               <li key={item} className="flex items-start gap-3">
                 <svg className="h-4 w-4 text-green-500 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -102,8 +144,184 @@ export default function PrereqsPage() {
           </ul>
         </div>
 
-        {/* ── Section 1: Java 21 ── */}
-        <Section number="1" title="Install Java 21 (JDK)">
+        {/* ── Section 1: Client Access / Install Bob ── */}
+        <Section number="1" title="Install IBM Bob">
+          <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+            IBM Bob is delivered as a desktop application. Complete the steps below to download, install, and log in before moving on to Java and Maven.
+          </p>
+
+          {/* 1a – Access the download */}
+          <Step label="Step 1 — Access the Bob download page">
+            Navigate to your email — you should have received an email from <strong>service@saas.ibm.com</strong>. Select the <strong>Download Bob</strong> icon at the bottom of the email. The email should resemble the following:
+            <ScreenShot src="Prereq-1.png" alt="Welcome to Bob invitation email" />
+            You will be redirected to{' '}
+            <a href="https://bob.ibm.com/download" target="_blank" rel="noopener noreferrer" className="text-ibm-blue underline hover:text-blue-700">bob.ibm.com/download ↗</a>.
+            <ScreenShot src="Prereq-2.png" alt="bob.ibm.com/download page" />
+          </Step>
+
+          {/* 1b – Sign up or log in */}
+          <Step label="Step 2 — Sign up or log in">
+            <p className="mb-2">You will be presented with two options:</p>
+            <div className="space-y-3">
+              <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                <p className="font-semibold text-gray-800 mb-1">Option A — Sign Up (New Users)</p>
+                <ol className="list-decimal ml-5 space-y-0.5 text-gray-600">
+                  <li>Fill in your email address, password, first and last name, and country/region</li>
+                  <li>Accept the Terms and Conditions and click <strong>Next</strong></li>
+                  <li>Verify your email address by clicking the link sent to your inbox</li>
+                </ol>
+              </div>
+              <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                <p className="font-semibold text-gray-800 mb-1">Option B — Log In (Existing IBM Account)</p>
+                <ol className="list-decimal ml-5 space-y-0.5 text-gray-600">
+                  <li>Click the <strong>Log In</strong> button</li>
+                  <li>Enter your IBM account email and password</li>
+                  <li>Click <strong>Log In</strong></li>
+                </ol>
+              </div>
+            </div>
+            <ScreenShot src="Prereq-3.png" alt="Log in to IBM Bob page" />
+          </Step>
+
+          {/* 1c – Download */}
+          <Step label="Step 3 — Download the installer">
+            After logging in you will be redirected to the Bob download page. The page will detect your OS automatically; if not, select your platform manually. Click the <strong>Download Bob</strong> button for your OS and wait for the download to complete.
+            <ScreenShot src="Prereq-4.png" alt="Bob download page showing macOS, Windows, and Linux options" />
+            <div className="mt-3 overflow-x-auto">
+              <table className="w-full text-xs border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="bg-gray-50 text-gray-700">
+                  <tr>
+                    <th className="px-3 py-2 text-left font-semibold">Platform</th>
+                    <th className="px-3 py-2 text-left font-semibold">File name</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  <tr><td className="px-3 py-2">Windows</td><td className="px-3 py-2 font-mono">IBM-BobUserSetup-x.x.x.exe</td></tr>
+                  <tr><td className="px-3 py-2">macOS</td><td className="px-3 py-2 font-mono">IBM-Bob-darwin-xxx-x.x.x+bobx.x.x.pkg</td></tr>
+                  <tr><td className="px-3 py-2">Linux</td><td className="px-3 py-2 font-mono">IBM-Bob-linux-x.x.x.AppImage / .deb / .rpm</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </Step>
+
+          {/* 1d – Install */}
+          <Step label="Step 4 — Install Bob">
+            <OSInstallTabs
+              windows={
+                <ol className="list-decimal ml-5 space-y-1">
+                  <li>Locate <code className="bg-gray-100 px-1 rounded">IBM-BobUserSetup-x.x.x.exe</code> in your Downloads folder and double-click it</li>
+                  <li>If prompted by User Account Control (UAC), click <strong>Yes</strong></li>
+                  <li>Follow the wizard: accept the license agreement, keep the default install location, click <strong>Install</strong></li>
+                  <li>Click <strong>Finish</strong> to launch Bob when complete</li>
+                </ol>
+              }
+              mac={
+                <ol className="list-decimal ml-5 space-y-1">
+                  <li>Locate <code className="bg-gray-100 px-1 rounded">IBM-Bob-darwin-xxx-x.x.x+bobx.x.x.pkg</code> in Downloads and double-click it</li>
+                  <li>Follow the wizard: click <strong>Continue</strong>, accept the license, keep defaults, click <strong>Install</strong></li>
+                  <li>Enter your macOS administrator password if prompted</li>
+                  <li>Click <strong>Close</strong> when complete, then launch Bob from Applications or Launchpad</li>
+                  <li>If macOS shows a security warning, go to <strong>System Preferences → Security &amp; Privacy</strong> and click <strong>Open Anyway</strong></li>
+                </ol>
+              }
+              linux={
+                <>
+                  <p className="mb-2 font-medium">.deb (Ubuntu/Debian):</p>
+                  <CodeBlock>{`sudo dpkg -i Bob-x.x.x.deb\nsudo apt-get install -f`}</CodeBlock>
+                  <p className="mt-3 mb-2 font-medium">.rpm (Fedora/RHEL):</p>
+                  <CodeBlock>sudo rpm -i Bob-x.x.x.rpm</CodeBlock>
+                  <p className="mt-3 mb-2 font-medium">AppImage:</p>
+                  <CodeBlock>{`chmod +x Bob-x.x.x.AppImage\n./Bob-x.x.x.AppImage`}</CodeBlock>
+                </>
+              }
+            />
+          </Step>
+
+          {/* 1e – Launch & log in */}
+          <Step label="Step 5 — Launch Bob and log in">
+            <ol className="list-decimal ml-5 space-y-1">
+              <li>When Bob launches, select the <strong>Log in to Bob</strong> button in the chat window on the right</li>
+            </ol>
+            <ScreenShot src="Prereq-5.png" alt="Bob chat window with Log in to Bob button highlighted" />
+            <ol className="list-decimal ml-5 space-y-1" start={2}>
+              <li>Select <strong>Open</strong> when prompted — this redirects you to the sign-in window</li>
+            </ol>
+            <ScreenShot src="Prereq-6.png" alt="Open external website dialog" />
+            <ol className="list-decimal ml-5 space-y-1" start={3}>
+              <li>Sign in with your IBM account credentials</li>
+            </ol>
+            <ScreenShot src="Prereq-7.png" alt="IBM login page" />
+            <ol className="list-decimal ml-5 space-y-1" start={4}>
+              <li>When prompted to open IBM Bob, click <strong>Open IBM Bob</strong></li>
+            </ol>
+            <ScreenShot src="Prereq-8.png" alt="Open IBM Bob browser dialog" />
+            <ol className="list-decimal ml-5 space-y-1" start={5}>
+              <li>You will be redirected back to IBM Bob — the chat window is now active</li>
+            </ol>
+            <ScreenShot src="Prereq-9.png" alt="Bob chat window after successful sign in" />
+          </Step>
+
+          {/* 1f – Premium Package */}
+          <Step label="Step 6 — Activate the Premium Package for Z">
+            <ol className="list-decimal ml-5 space-y-1">
+              <li>Select the <strong>wheel icon</strong> at the top of the chat window to open Settings</li>
+            </ol>
+            <ScreenShot src="Prereq-10.png" alt="Bob chat window with settings gear icon highlighted" />
+            <ol className="list-decimal ml-5 space-y-1" start={2}>
+              <li>Under the <strong>General</strong> tab, open the <strong>Team</strong> dropdown and select the team name your instructor has provided</li>
+            </ol>
+            <ScreenShot src="Prereq-11.png" alt="Bob Settings General tab showing Team dropdown" />
+            <ScreenShot src="Prereq-12.png" alt="Team dropdown open with techzone-bobathon selected" />
+            <ol className="list-decimal ml-5 space-y-1" start={3}>
+              <li>If prompted to install the premium package, select <strong>Install</strong></li>
+            </ol>
+            <Callout type="tip" title="Confirm Z modes are available">
+              After selecting the team, click the <strong>Agent</strong> icon at the bottom-left of the chat window. You should see <strong>Z Code</strong> and <strong>Z Architect</strong> appear in the mode list.
+            </Callout>
+            <ScreenShot src="Prereq-13.png" alt="Mode selector showing Z Code and Z Architect modes" />
+          </Step>
+
+          {/* 1g – Troubleshooting */}
+          <div className="mt-4">
+            <details className="border border-gray-200 rounded-lg overflow-hidden">
+              <summary className="px-4 py-3 bg-gray-50 text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100">
+                Troubleshooting Bob installation
+              </summary>
+              <div className="px-4 py-3 text-sm text-gray-600 space-y-3">
+                <div>
+                  <p className="font-semibold text-gray-800">Installation blocked by security software</p>
+                  <p>Temporarily disable antivirus software during installation, add Bob to your whitelist, then re-enable it.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800">Cannot log in after installation</p>
+                  <p>Verify your IBM account credentials and that your email is verified. Reset your password at <a href="https://www.ibm.com" target="_blank" rel="noopener noreferrer" className="text-ibm-blue underline">ibm.com ↗</a> if needed.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800">Bob won't launch (macOS)</p>
+                  <p>Go to <strong>System Preferences → Security &amp; Privacy</strong>, click <strong>Open Anyway</strong> for Bob, and grant necessary permissions.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800">Chat window does not appear in the IDE (macOS)</p>
+                  <p>Reach out to your IBM instructor for assistance.</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800">Permission errors (Linux)</p>
+                  <p>Run install commands with <code className="bg-gray-100 px-1 rounded">sudo</code> and check file permissions: <code className="bg-gray-100 px-1 rounded">chmod +x Bob-x.x.x.AppImage</code></p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-800">Download fails or is interrupted</p>
+                  <p>Check your internet connection, clear your browser cache, and try again.</p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </Section>
+
+        {/* ── Section 2: Java 21 ── */}
+        <Section number="2" title="Install Java 21 (JDK)">
+          <Callout type="info" title="Required for all labs">
+            Java 21 is needed by IBM Z Open Editor for all labs in this workshop. Install this regardless of which labs you plan to run.
+          </Callout>
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">
             IBM Z Open Editor requires a 64-bit Java 21 JDK. The recommended distribution is{' '}
             <a
@@ -171,8 +389,41 @@ export default function PrereqsPage() {
           />
         </Section>
 
-        {/* ── Section 2: Maven ── */}
-        <Section number="2" title="Install Apache Maven">
+        {/* ── Section 3: JAVA_HOME ── */}
+        <Section number="3" title="Set JAVA_HOME in IBM Z Open Editor (if needed)">
+          <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+            IBM Z Open Editor will try to detect Java automatically. If the Java prerequisite check in the extension shows a <span className="text-red-600 font-medium">red ✗</span> instead of a green ✓, follow these steps to point it at your Java installation manually.
+          </p>
+          <Callout type="tip" title="Check the prerequisite first">
+            Open the IBM Z Open Editor welcome page and look at the prerequisite checklist. If Java shows a green checkmark, you can skip this section entirely.
+          </Callout>
+          <Step label="Step 1 — Open the Extensions panel">
+            Press <kbd className="bg-gray-100 px-1 rounded text-xs font-mono">Ctrl+Shift+X</kbd> (Windows/Linux) or <kbd className="bg-gray-100 px-1 rounded text-xs font-mono">Cmd+Shift+X</kbd> (macOS) and locate <strong>IBM Z Open Editor</strong> under INSTALLED.
+          </Step>
+          <Step label="Step 2 — Open its Settings">
+            Click the <strong>gear icon</strong> on the IBM Z Open Editor extension entry (or right-click it) and choose <strong>Settings</strong>.
+          </Step>
+          <Step label="Step 3 — Set the JAVA_HOME path">
+            In the Settings search box, type <code className="bg-gray-100 px-1 rounded">java</code>. Find the setting{' '}
+            <strong>Zopeneditor: JAVA_HOME</strong> and enter the full path to your 64-bit Java install — for example:
+            <OSTabs
+              windows={<CodeBlock>C:\Program Files\IBM\ibm-semeru-open-21</CodeBlock>}
+              mac={<CodeBlock>/Library/Java/JavaVirtualMachines/ibm-semeru-open-21.jdk/Contents/Home</CodeBlock>}
+            />
+            <Callout type="important" title="Do not include \bin\java">
+              The path must point to the <strong>Java folder itself</strong> — do <em>not</em> include the <code className="bg-gray-100 px-1 rounded">\bin\java</code> suffix.
+            </Callout>
+          </Step>
+          <Step label="Step 4 — Restart VS Code">
+            The setting applies to all profiles and takes effect after you fully restart the editor.
+          </Step>
+        </Section>
+
+        {/* ── Section 4: Maven ── */}
+        <Section number="4" title="Install Apache Maven">
+          <Callout type="warning" title="Lab 6 & Lab 7 only">
+            Maven is only required if you are doing <strong>Lab 6: UI Modernization</strong> or <strong>Lab 7: COBOL to Java Modernization</strong>. If your instructor has not assigned these labs, you can skip Sections 4 and 5.
+          </Callout>
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">
             Maven is the build tool used to compile and package the GenApp sample project. Download the latest 3.9.x binary from the{' '}
             <a
@@ -235,10 +486,13 @@ export default function PrereqsPage() {
           />
         </Section>
 
-        {/* ── Section 3: PATH ── */}
-        <Section number="3" title="Configure the System PATH">
+        {/* ── Section 5: PATH ── */}
+        <Section number="5" title="Configure the System PATH (Maven)">
+          <Callout type="warning" title="Lab 6 & Lab 7 only">
+            This section only applies if you installed Maven in Section 4.
+          </Callout>
           <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-            If you used installers or Homebrew in Steps 1–2, your PATH is already set — skip to the verification step. If you extracted manually, follow the steps below.
+            If you used Homebrew in Section 4, your PATH is already set — skip to the verification step. If you extracted Maven manually, follow the steps below.
           </p>
           <OSTabs
             windows={
@@ -272,35 +526,6 @@ export default function PrereqsPage() {
           />
         </Section>
 
-        {/* ── Section 4: JAVA_HOME in VS Code ── */}
-        <Section number="4" title="Set JAVA_HOME in IBM Z Open Editor (if needed)">
-          <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-            IBM Z Open Editor will try to detect Java automatically. If the Java prerequisite check in the extension shows a <span className="text-red-600 font-medium">red ✗</span> instead of a green ✓, follow these steps to point it at your Java installation manually.
-          </p>
-          <Callout type="tip" title="Check the prerequisite first">
-            Open the IBM Z Open Editor welcome page and look at the prerequisite checklist. If Java shows a green checkmark, you can skip this section entirely.
-          </Callout>
-          <Step label="Step 1 — Open the Extensions panel">
-            Press <kbd className="bg-gray-100 px-1 rounded text-xs font-mono">Ctrl+Shift+X</kbd> (Windows/Linux) or <kbd className="bg-gray-100 px-1 rounded text-xs font-mono">Cmd+Shift+X</kbd> (macOS) and locate <strong>IBM Z Open Editor</strong> under INSTALLED.
-          </Step>
-          <Step label="Step 2 — Open its Settings">
-            Click the <strong>gear icon</strong> on the IBM Z Open Editor extension entry (or right-click it) and choose <strong>Settings</strong>.
-          </Step>
-          <Step label="Step 3 — Set the JAVA_HOME path">
-            In the Settings search box, type <code className="bg-gray-100 px-1 rounded">java</code>. Find the setting{' '}
-            <strong>Zopeneditor: JAVA_HOME</strong> and enter the full path to your 64-bit Java install — for example:
-            <OSTabs
-              windows={<CodeBlock>C:\Program Files\IBM\ibm-semeru-open-21</CodeBlock>}
-              mac={<CodeBlock>/Library/Java/JavaVirtualMachines/ibm-semeru-open-21.jdk/Contents/Home</CodeBlock>}
-            />
-            <Callout type="important" title="Do not include \bin\java">
-              The path must point to the <strong>Java folder itself</strong> — do <em>not</em> include the <code className="bg-gray-100 px-1 rounded">\bin\java</code> suffix.
-            </Callout>
-          </Step>
-          <Step label="Step 4 — Restart VS Code">
-            The setting applies to all profiles and takes effect after you fully restart the editor.
-          </Step>
-        </Section>
 
         {/* ── Helpful links ── */}
         <div className="bg-white border border-ibm-border rounded-xl p-6 mb-10">
