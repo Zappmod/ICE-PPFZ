@@ -56,6 +56,32 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Agenda */}
+      <div className="max-w-6xl mx-auto px-8 py-10">
+        <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-6">Agenda</h2>
+        <div className="bg-white border border-ibm-border rounded-xl overflow-hidden">
+          {[
+            { n: '01', text: 'Review the selected applications and Phase 1 scope against the agreed use cases.' },
+            { n: '02', text: 'Define the project cadence, deliverables, test cases, and success metrics.' },
+            { n: '03', text: 'Initiate configuration and execution of the code onboarding process.' },
+            { n: '04', text: 'Build the metadata model.' },
+            { n: '05', text: 'Create the initial business dictionary and begin validation (subject to application size).' },
+            { n: '06', text: 'Review the initial processing results.' },
+            { n: '07', text: 'Discuss the next steps and upcoming working sessions.' },
+          ].map((item, idx, arr) => (
+            <div
+              key={item.n}
+              className={`flex items-start gap-5 px-6 py-4${idx < arr.length - 1 ? ' border-b border-ibm-border' : ''}`}
+            >
+              <span className="shrink-0 text-xs font-bold text-ibm-indigo bg-ibm-active rounded-full w-7 h-7 flex items-center justify-center mt-0.5">
+                {item.n}
+              </span>
+              <p className="text-sm text-gray-700 leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Sample Code Download */}
       <div className="max-w-6xl mx-auto px-8 py-8">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-400 mb-4">Before You Begin</h2>
