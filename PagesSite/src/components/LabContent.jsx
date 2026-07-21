@@ -7,7 +7,7 @@ import mermaid from 'mermaid'
 
 mermaid.initialize({ startOnLoad: false, theme: 'neutral', securityLevel: 'loose' })
 
-const BASE = '/ICE-Bobathon'
+const BASE = '/ICE-PPFZ'
 
 // Pre-process Quarto callout syntax → HTML divs react-markdown can render
 function preprocessCallouts(md) {

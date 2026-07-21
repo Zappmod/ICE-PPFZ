@@ -6,7 +6,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/ICE-Bobathon/lab-instructions/index.json')
+    fetch('/ICE-PPFZ/lab-instructions/index.json')
       .then(r => r.json())
       .then(data => { setLabs(data.labs); setLoading(false) })
       .catch(() => setLoading(false))
@@ -25,7 +25,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-8 py-12 flex items-center justify-between gap-8">
           <div className="flex-1 max-w-xl">
             <div className="flex items-center gap-3 mb-4">
-              <img src="/ICE-Bobathon/Bob.png" alt="Bob" className="h-14 w-14 object-contain" />
+              <img src="/ICE-PPFZ/Bob.png" alt="Bob" className="h-14 w-14 object-contain" />
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-ibm-indigo mb-1">IBM Client Engineering</p>
                 <h1 className="text-3xl font-bold text-gray-900 leading-tight">
@@ -48,7 +48,7 @@ export default function HomePage() {
           </div>
           <div className="hidden md:block shrink-0">
             <img
-              src="/ICE-Bobathon/BobMainframe.png"
+              src="/ICE-PPFZ/BobMainframe.png"
               alt="Bob with mainframe"
               className="h-64 w-auto object-contain"
             />
@@ -74,7 +74,7 @@ export default function HomePage() {
             </div>
           </div>
           <a
-            href="/ICE-Bobathon/SampleCode.zip"
+            href="/ICE-PPFZ/SampleCode.zip"
             download="SampleCode.zip"
             className="shrink-0 inline-flex items-center gap-2 bg-ibm-blue text-white px-5 py-2.5 rounded text-sm font-semibold hover:bg-blue-700 transition-colors"
           >

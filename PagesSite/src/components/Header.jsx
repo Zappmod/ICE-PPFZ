@@ -10,7 +10,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-ibm-border h-12 flex items-center px-6 gap-8">
       {/* Wordmark */}
       <Link to="/" className="flex items-center gap-2 shrink-0">
-        <img src="/ICE-Bobathon/Bob2.png" alt="Bob" className="h-7 w-7 object-contain" />
+        <img src="/ICE-PPFZ/Bob2.png" alt="Bob" className="h-7 w-7 object-contain" />
         <span className="text-gray-900 text-base tracking-tight">
           <span className="font-light">IBM </span>
           <span className="font-bold">Bob</span>

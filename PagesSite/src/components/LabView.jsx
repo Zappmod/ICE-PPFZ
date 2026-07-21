@@ -8,7 +8,7 @@ export default function LabView() {
   const [labs, setLabs] = useState([])
 
   useEffect(() => {
-    fetch('/ICE-Bobathon/lab-instructions/index.json')
+    fetch('/ICE-PPFZ/lab-instructions/index.json')
       .then(r => r.json())
       .then(data => setLabs(data.labs))
   }, [])

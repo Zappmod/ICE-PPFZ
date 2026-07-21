@@ -16,7 +16,7 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter basename="/ICE-Bobathon">
+    <BrowserRouter basename="/ICE-PPFZ">
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />

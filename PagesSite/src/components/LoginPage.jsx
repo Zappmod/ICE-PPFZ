@@ -31,7 +31,7 @@ export default function LoginPage({ onSuccess }) {
         {/* Card header accent */}
         <div className="bg-gradient-to-r from-ibm-indigo to-ibm-purple p-6 flex flex-col items-center">
           <img
-            src="/ICE-Bobathon/Bob.png"
+            src="/ICE-PPFZ/Bob.png"
             alt="IBM Bob"
             className="h-20 w-20 object-contain mb-3"
           />

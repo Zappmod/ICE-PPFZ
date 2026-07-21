@@ -37,7 +37,7 @@ export default function Sidebar({ labs }) {
       {/* Footer */}
       <div className="p-4 border-t border-ibm-border">
         <div className="flex items-center gap-2 mb-2">
-          <img src="/ICE-Bobathon/Bob2.png" alt="Bob" className="h-8 w-8 object-contain shrink-0" />
+          <img src="/ICE-PPFZ/Bob2.png" alt="Bob" className="h-8 w-8 object-contain shrink-0" />
           <div>
             <p className="text-xs font-semibold text-gray-700 leading-none">IBM Bob</p>
             <p className="text-xs text-gray-400 leading-tight mt-0.5">Premium Package for Z</p>

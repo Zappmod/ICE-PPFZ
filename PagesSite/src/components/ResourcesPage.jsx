@@ -1,4 +1,4 @@
-const BASE = '/ICE-Bobathon'
+const BASE = '/ICE-PPFZ'
 
 const formats = [
   {
