@@ -1,4 +1,4 @@
-# UMB-Bobathon
+# ICE-PPFZ
 
 This repo contains the sample application and interactive lab guide site for the IBM Bob Premium for Z Bobathon.
 
@@ -17,7 +17,7 @@ This repo contains the sample application and interactive lab guide site for the
 
 The interactive lab guide is hosted on GitHub Pages and deploys automatically on every push to `main`.
 
-**Live site:** [https://zappmod.github.io/UMB-Bobathon/](https://zappmod.github.io/UMB-Bobathon/)
+**Live site:** [https://zappmod.github.io/ICE-PPFZ/](https://zappmod.github.io/ICE-PPFZ/)
 
 > **Note:** After the first push to this repo, you must enable GitHub Pages in the repo settings — see the setup steps below.
 
@@ -61,7 +61,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/UMB-Bobathon/](http://localhost:5173/UMB-Bobathon/)
+Open [http://localhost:5173/ICE-PPFZ/](http://localhost:5173/ICE-PPFZ/)
 
 ---
 
