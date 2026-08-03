@@ -40,8 +40,8 @@ node -e "const c=require('crypto'); console.log(c.createHash('sha256').update('y
 ```
 
 Default credentials (change these!):
-- Username: `bobathon`
-- Password: `BobPremiumZ2025!`
+- Username: `IBM_PPFZ`
+- Password: `Mainframe2026!`
 
 ### 2. Push to `main`
 
